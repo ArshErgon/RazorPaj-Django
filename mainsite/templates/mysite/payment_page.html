@@ -1,0 +1,34 @@
+{% extends 'mysite/base.html' %}
+{% block body %}
+{% block title %}{{ donation }}{% endblock %}
+<br><br><br><br>
+
+<div class="container">
+	<div class="jumbotron">
+		<form method="post">{% csrf_token %}
+			{{ form.as_p }}
+			<button type="submit" class="btn btn-danger">Donate</button>
+		</form>
+	</div>
+</div>
+
+
+<form action="/purchase" method="POST">
+
+     <!-- Note that the amount is in paise = 50 INR -->
+
+<script
+    src="https://checkout.razorpay.com/v1/checkout.js"
+    data-key="rzp_test_VKwzQnRYkTmxEW"
+    data-amount={{ donation }}
+    data-buttontext="Pay"
+    data-name="Merchant Name"
+    data-description="Purchase Description"
+    data-image=""
+    data-prefill.email="{{ email }}"
+    data-theme.color="blue"
+></script>
+<input type="hidden" value="Hidden Element" name="hidden">
+</form>
+
+{% endblock %}
